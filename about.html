@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About - BEIGE PARADISE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #eee8d5;
+      color: #bfa06a;
+      font-family: 'Goudy Bookletter 1911', serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: fadeInUp 2s ease-out;
+    }
+
+    p {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin-bottom: 1.5rem;
+      white-space: pre-wrap; /* Preserve line breaks */
+    }
+
+    .word {
+      opacity: 0;
+      transform: translateY(-50px);
+      display: inline-block;
+      animation: fadeInUp 0.5s forwards;
+    }
+
+    .beige-button {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #e6d8b8;
+      color: #7a5c28;
+      border: 2px solid #c8b48c;
+      border-radius: 8px;
+      font-family: 'Goudy Bookletter 1911', serif;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 4px 4px 0px #d2b48c;
+      animation: buttonIdle 2s infinite alternate;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .beige-button:hover {
+      background-color: #f0e4cc;
+      box-shadow: 2px 2px 0px #d2b48c;
+      transform: translateY(-4px) scale(1.05);
+    }
+
+    .beige-button:active {
+      background-color: #decaa5;
+      transform: translateY(2px) scale(0.95);
+      box-shadow: 1px 1px 0px #c2a280;
+      animation: buttonClick 0.2s ease;
+    }
+
+    .about-link {
+      position: absolute;
+      bottom: 20px;
+      font-size: 1rem;
+      color: #7a5c28;
+      text-decoration: none;
+      font-family: 'Goudy Bookletter 1911', serif;
+      transition: color 0.3s ease;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      0% { 
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      100% { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes buttonIdle {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-3px); }
+    }
+
+    @keyframes buttonClick {
+      0% { transform: translateY(2px) scale(0.95); }
+      50% { transform: translateY(4px) scale(0.92); }
+      100% { transform: translateY(2px) scale(0.95); }
+    }
+  </style>
+</head>
+<body>
+  <h1>About Shopsys</h1>
+  <p class="about-link">By Iwo24pl</p>
+
+  <p id="aboutText">
+    <!-- Placeholder text that will be replaced dynamically -->
+    <span class="word">Lorem</span> <span class="word">ipsum</span> <span class="word">dolor</span> <span class="word">sit</span> <span class="word">amet.</span>
+  </p>
+
+  <a href="main.html" class="beige-button">Back to Home</a>
+
+  <script>
+    // Example of new text content you might want to dynamically load, with <br> tags
+    const newText = "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit.\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\nUt enim ad minim veniam.";
+
+    function updateText() {
+      const aboutTextElement = document.getElementById('aboutText');
+      
+      // Clear the existing content and prepare to add new content
+      aboutTextElement.innerHTML = ''; 
+
+      // Split the new text by line breaks (using \n for <br> compatibility)
+      const lines = newText.split('\n');
+      
+      // For each line, split by spaces and add span for each word
+      lines.forEach((line, lineIndex) => {
+        const words = line.split(' ');
+        
+        // Create a new span to hold the line (so we can animate each line as well)
+        const lineWrapper = document.createElement('span');
+        lineWrapper.style.display = 'block'; // Make sure each line breaks properly
+        
+        words.forEach((word, wordIndex) => {
+          const wordSpan = document.createElement('span');
+          wordSpan.classList.add('word');
+          wordSpan.textContent = word;
+          wordSpan.style.animationDelay = `${lineIndex * 0.5 + wordIndex * 0.1}s`; // Staggered delay for each word in each line
+          lineWrapper.appendChild(wordSpan);
+          lineWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+        
+        aboutTextElement.appendChild(lineWrapper); // Append the line wrapper (with words) to the text
+      });
+    }
+
+    // Call updateText to replace the content when the page loads
+    window.onload = () => {
+      updateText();
+    };
+  </script>
+</body>
+</html>

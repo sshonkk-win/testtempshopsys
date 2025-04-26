@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BEIGE PARADISE: SLIDE & FADE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Goudy+Bookletter+1911&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #eee8d5;
+      color: #bfa06a;
+      font-family: 'Goudy Bookletter 1911', serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.5rem;
+      max-width: 600px;
+      animation: floaty 4s infinite ease-in-out, colorShift 6s infinite alternate;
+    }
+
+    .beige-button {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #e6d8b8;
+      color: #7a5c28;
+      border: 2px solid #c8b48c;
+      border-radius: 8px;
+      font-family: 'Goudy Bookletter 1911', serif;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 4px 4px 0px #d2b48c;
+      animation: buttonIdle 2s infinite alternate;
+      text-decoration: none; /* For <a> buttons */
+      display: inline-block;
+    }
+
+    .beige-button:hover {
+      background-color: #f0e4cc;
+      box-shadow: 2px 2px 0px #d2b48c;
+      transform: translateY(-4px) scale(1.05);
+    }
+
+    .beige-button:active {
+      background-color: #decaa5;
+      transform: translateY(2px) scale(0.95);
+      box-shadow: 1px 1px 0px #c2a280;
+      animation: buttonClick 0.2s ease;
+    }
+
+    /* Popup Styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #e6d8b8;
+      color: #7a5c28;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+      border: 2px solid #c8b48c;
+      z-index: 1000;
+      max-width: 90vw;
+      width: auto;
+      min-width: 300px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .popup-content {
+      padding-bottom: 1rem;
+      opacity: 0;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    .popup-content p {
+      max-height: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .popup-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding-top: 1rem;
+    }
+
+    .popup-button {
+      padding: 0.5rem 1rem;
+      background-color: #f0e4cc;
+      color: #7a5c28;
+      border: 2px solid #d2b48c;
+      border-radius: 8px;
+      font-family: 'Goudy Bookletter 1911', serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .popup-button:hover {
+      background-color: #decaa5;
+      transform: scale(1.05);
+    }
+
+    .popup-button:active {
+      background-color: #d2b48c;
+      transform: scale(0.95);
+    }
+
+    .inline-icon {
+      height: 1em;
+      width: auto;
+      vertical-align: middle;
+      margin-left: 0.3em;
+    }
+
+    /* Footer link */
+    .about-link {
+      position: absolute;
+      bottom: 20px;
+      font-size: 1rem;
+      color: #7a5c28;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: 'Goudy Bookletter 1911', serif;
+      transition: color 0.3s ease;
+    }
+
+    .about-link:hover {
+      color: #bfa06a;
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      0% { transform: translate(-50%, 50%); opacity: 0; }
+      100% { transform: translate(-50%, -50%); opacity: 1; }
+    }
+
+    @keyframes fadeInElement {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideOut {
+      0% { transform: translate(-50%, -50%); opacity: 1; }
+      100% { transform: translate(-50%, -60%); opacity: 0; }
+    }
+
+    @keyframes fadeOutElement {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-20px); }
+    }
+
+    @keyframes buttonIdle {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-3px); }
+    }
+
+    @keyframes buttonClick {
+      0% { transform: translateY(2px) scale(0.95); }
+      50% { transform: translateY(4px) scale(0.92); }
+      100% { transform: translateY(2px) scale(0.95); }
+    }
+
+    @keyframes floaty {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes colorShift {
+      0% { color: #bfa06a; }
+      50% { color: #a08050; }
+      100% { color: #bfa06a; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Shopsys</h1>
+  <p>Simple shop system.</p>
+
+  <button class="beige-button" onclick="openPopup()">
+    <img src="w11.png" alt="Windows 11 Icon" class="inline-icon"> 
+    Download for Windows
+  </button>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>Hold your horses!</h2>
+      <p>This program is distributed under a Proprietary Freeware License, which means:
+      <br><br>
+      • You are allowed to download and use the software free of charge.
+      <br>
+      • You are not permitted to modify, reverse-engineer, or redistribute the software.
+      <br>
+      • The software is provided "as is", no promises if it fries your computer or makes your toaster catch fire.
+      </p>
+    </div>
+    <div class="popup-buttons">
+      <button class="popup-button" onclick="closePopup()">Close</button>
+      <a href="placeholder.exe" download>
+        <button class="popup-button" onclick="closePopup()">Continue to download</button>
+      </a>
+      
+    </div>
+  </div>
+
+  <a href="about.html" class="about-link">About Us</a>
+
+  <script>
+    let popup = document.getElementById('popup');
+    let popupContent = document.querySelector('.popup-content');
+    let popupButtons = document.querySelectorAll('.popup-button');
+
+    function openPopup() {
+      popup.style.display = 'block';
+
+      popup.style.animation = 'none';
+      popup.offsetHeight; // force reflow
+      popup.style.animation = 'slideIn 0.3s ease-out, fadeIn 0.3s ease-out';
+
+      popupContent.style.animation = 'none';
+      popupContent.offsetHeight;
+      popupContent.style.animation = 'fadeInElement 0.3s ease-out forwards';
+
+      popupButtons.forEach((button, index) => {
+        button.style.animation = 'none';
+        button.offsetHeight;
+        button.style.animation = `fadeInElement 0.3s ease-out forwards`;
+        button.style.animationDelay = `${0.3 + index * 0.1}s`;
+      });
+    }
+
+    function closePopup() {
+      popup.style.animation = 'slideOut 0.3s ease-in, fadeOut 0.3s ease-in';
+
+      const elements = document.querySelectorAll('.popup-content, .popup-button');
+      elements.forEach((el, index) => {
+        el.style.animation = 'none';
+        el.offsetHeight;
+        el.style.animation = `fadeOutElement 0.3s ease-in forwards`;
+        el.style.animationDelay = `${0.1 * index}s`;
+      });
+
+      setTimeout(function() {
+        popup.style.display = 'none';
+      }, 300);
+    }
+  </script>
+</body>
+</html>
